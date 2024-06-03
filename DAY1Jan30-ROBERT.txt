@@ -230,76 +230,77 @@ ip address trusted list
 ipv4 0.0.0.0 0.0.0.0
 exit
 
-configure terminal
-! dial-peer voice 11 Voip
-! destination-pattern 11..
-! session target ipv4:10.11.100.8
-! codec g711ULAW
-dial-peer voice 12 Voip
- destination-pattern 12..
- session target ipv4:10.12.100.8
- codec g711ULAW
-dial-peer voice 21 Voip
- destination-pattern 21..
- session target ipv4:10.21.100.8
- codec g711ULAW
-dial-peer voice 22 Voip
- destination-pattern 22..
- session target ipv4:10.22.100.8
- codec g711ULAW
-dial-peer voice 31 Voip
- destination-pattern 31..
- session target ipv4:10.31.100.8
- codec g711ULAW
-dial-peer voice 32 Voip
- destination-pattern 32..
- session target ipv4:10.32.100.8
- codec g711ULAW
-dial-peer voice 41 Voip
- destination-pattern 41..
- session target ipv4:10.41.100.8
- codec g711ULAW
-dial-peer voice 42 Voip
- destination-pattern 42..
- session target ipv4:10.42.100.8
- codec g711ULAW
-dial-peer voice 51 Voip
- destination-pattern 51..
- session target ipv4:10.51.100.8
- codec g711ULAW
-dial-peer voice 52 Voip
- destination-pattern 52..
- session target ipv4:10.52.100.8
- codec g711ULAW
-dial-peer voice 61 Voip
- destination-pattern 61..
- session target ipv4:10.61.100.8
- codec g711ULAW
-dial-peer voice 62 Voip
- destination-pattern 62..
- session target ipv4:10.62.100.8
- codec g711ULAW
-dial-peer voice 71 Voip
- destination-pattern 71..
- session target ipv4:10.71.100.8
- codec g711ULAW
-dial-peer voice 72 Voip
- destination-pattern 72..
- session target ipv4:10.72.100.8
- codec g711ULAW
-dial-peer voice 81 Voip
- destination-pattern 81..
- session target ipv4:10.81.100.8
- codec g711ULAW
-dial-peer voice 82 Voip
- destination-pattern 82..
- session target ipv4:10.82.100.8
- codec g711ULAW
 
-@@@@@@
-!@@@EDGE ROUTE CONFIG
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+! OUTGOING CALL FROM CUCM TO OTHER CUCM
+! EDGE ROUTE CONFIG
 config t
-   hostname EDGE12
+   hostname EDGE62
    enable secret pass
    service password-encryption
    no logging console
@@ -314,22 +315,22 @@ config t
       exec-timeout 0 0
    Int Gi 0/0/0
      description INSIDE
-     ip add 10.12.12.1 255.255.255.0
+     ip add 10.62.62.1 255.255.255.0
 	 no shutdown
    Int Gi 0/0/1
      description OUTSIDE
-	 ip add 200.0.0.12 255.255.255.0
+	 ip add 200.0.0.62 255.255.255.0
 	 no shutdown
    Int Loopback 0
      description VIRTUALIP
-	 ip add 12.0.0.1 255.255.255.255
+	 ip add 62.0.0.1 255.255.255.255
  end
 
- 
+ !!! Static ROUTING
  !!! EDGE route NOT dikit to ClassMate:
-  conf t
+conf t
  ip routing 
-!ip route 10.11.0.0 255.255.0.0 200.0.0.11
+ ip route 10.11.0.0 255.255.0.0 200.0.0.11
  ip route 10.12.0.0 255.255.0.0 200.0.0.12
  ip route 10.21.0.0 255.255.0.0 200.0.0.21
  ip route 10.22.0.0 255.255.0.0 200.0.0.22
@@ -340,32 +341,32 @@ config t
  ip route 10.51.0.0 255.255.0.0 200.0.0.51
  ip route 10.52.0.0 255.255.0.0 200.0.0.52
  ip route 10.61.0.0 255.255.0.0 200.0.0.61
- ip route 10.62.0.0 255.255.0.0 200.0.0.62
+!ip route 10.62.0.0 255.255.0.0 200.0.0.62
  ip route 10.71.0.0 255.255.0.0 200.0.0.71
  ip route 10.72.0.0 255.255.0.0 200.0.0.72
  ip route 10.81.0.0 255.255.0.0 200.0.0.81
  ip route 10.82.0.0 255.255.0.0 200.0.0.82
- ip route 10._.0.0 255.255.0.0 10._._.4
+ ip route 10.62.0.0 255.255.0.0 10.62.62.4
  end
  
 *********************************************
-ROUTING 
+!L3 SWITCH ROUTING 
 @SWITCH/COREBABA
 conf t 
 ip routing
-ip route 0.0.0.0 0.0.0.0 10._._.1
+ip route 0.0.0.0 0.0.0.0 10.62.62.1
 end
 
 @CUCM
 conf t
 ip routing
-ip route 0.0.0.0 0.0.0.0 10._.100.4
+ip route 0.0.0.0 0.0.0.0 10.62.100.4
 end
 
 !How to Static Route windows Server:
 cmd
-route  add   10.0.0.0   mask   255.0.0.0    10.m.1.4
-route  add  200.0.0.0   mask  255.255.255.0   10.m.1.4
+route  add   10.0.0.0   mask   255.0.0.0    10.62.1.4
+route  add  200.0.0.0   mask  255.255.255.0   10.62.1.4
 
 ********************************************
 
