@@ -75,21 +75,60 @@ TASK1.3
 ip route 0.0.0.0 0.0.0.0 200.0.0.1
 ip name-server 8.8.8.8
 ip domain-lookup
-no ip access-list standard lAST2ROWONLY
+no ip access-list standard LAST2ROWONLY
 ip access-list standard LAST2ROWONLY
-permit 10.11.0.0 0.0.255.255
-permit 10.21.0.0 0.0.255.255
-permit 10.31.0.0 0.0.255.255 
-permit 10.41.0.0 0.0.255.255
-permit 10.12.0.0 0.0.255.255
-permit 10.22.0.0 0.0.255.255
-permit 10.32.0.0 0.0.255.255
-permit 10.42.0.0 0.0.255.255
-deny any
+deny 10.11.0.0 0.0.255.255
+deny 10.21.0.0 0.0.255.255
+deny 10.31.0.0 0.0.255.255 
+deny 10.41.0.0 0.0.255.255
+deny 10.12.0.0 0.0.255.255
+deny 10.22.0.0 0.0.255.255
+deny 10.32.0.0 0.0.255.255
+deny 10.42.0.0 0.0.255.255
+permit any
 int gi 0/0/1
 ip access-group LAST2ROWONLY in
 end
 
+TASK1.4
+ip route 0.0.0.0 0.0.0.0 200.0.0.1
+ip name-server 8.8.8.8
+ip domain-lookup
+no ip access-list standard THREESOME
+ip access-list standard THREESOME
+deny 10.11.0.0 0.0.255.255
+deny 10.21.0.0 0.0.255.255
+deny 10.31.0.0 0.0.255.255 
+deny 10.41.0.0 0.0.255.255
+deny 10.12.0.0 0.0.255.255
+deny 10.22.0.0 0.0.255.255
+deny 10.32.0.0 0.0.255.255
+deny 10.51.0.0 0.0.255.255
+deny 10.61.0.0 0.0.255.255
+permit any
+int gi 0/0/1
+ip access-group THREESOME in
+end
+
+TASK1.5
+ip route 0.0.0.0 0.0.0.0 200.0.0.1
+ip name-server 8.8.8.8
+ip domain-lookup
+no ip access-list standard THREESOME
+ip access-list standard THREESOME
+deny 10.11.0.0 0.0.255.255
+deny 10.21.0.0 0.0.255.255
+deny 10.31.0.0 0.0.255.255 
+deny 10.41.0.0 0.0.255.255
+deny 10.12.0.0 0.0.255.255
+deny 10.22.0.0 0.0.255.255
+deny 10.32.0.0 0.0.255.255
+deny 10.51.0.0 0.0.255.255
+deny 10.61.0.0 0.0.255.255
+permit any
+int gi 0/0/1
+ip access-group THREESOME in
+end
 
 
 
