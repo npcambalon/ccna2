@@ -77,15 +77,15 @@ ip name-server 8.8.8.8
 ip domain-lookup
 no ip access-list standard lAST2ROWONLY
 ip access-list standard LAST2ROWONLY
-deny 10.11.0.0 0.0.255.255
-deny 10.21.0.0 0.0.255.255
-deny 10.31.0.0 0.0.255.255 
-deny 10.41.0.0 0.0.255.255
-deny 10.12.0.0 0.0.255.255
-deny 10.22.0.0 0.0.255.255
-deny 10.32.0.0 0.0.255.255
-deny 10.42.0.0 0.0.255.255
-permit any
+permit 10.11.0.0 0.0.255.255
+permit 10.21.0.0 0.0.255.255
+permit 10.31.0.0 0.0.255.255 
+permit 10.41.0.0 0.0.255.255
+permit 10.12.0.0 0.0.255.255
+permit 10.22.0.0 0.0.255.255
+permit 10.32.0.0 0.0.255.255
+permit 10.42.0.0 0.0.255.255
+deny any
 int gi 0/0/1
 ip access-group LAST2ROWONLY in
 end
