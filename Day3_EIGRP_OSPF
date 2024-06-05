@@ -1,40 +1,96 @@
 configuring OSPF and EIGRP in real world devices
 
-COREbaba62(config)#router eigrp 62
-COREbaba62(config-router)#no auto-s
-COREbaba62(config-router)#no auto-summary 
-COREbaba62(config-router)#network 10.62.100.0 0.0.0.255
-COREbaba62(config-router)#network 10.62.50.0 0.0.0.255 
-COREbaba62(config-router)#network 10.62.10.0 0.0.0.255
-COREbaba62(config-router)#network 10.62.1.0 0.0.0.255 
-COREbaba62(config-router)#network 10.62.62.0 0.0.0.255
-COREbaba62(config-router)#end
-COREbaba62#
+COREbaba62(config)router eigrp 62
+COREbaba62(config-router)no auto-s
+COREbaba62(config-router)no auto-summary 
+COREbaba62(config-router)network 10.62.100.0 0.0.0.255
+COREbaba62(config-router)network 10.62.50.0 0.0.0.255 
+COREbaba62(config-router)network 10.62.10.0 0.0.0.255
+COREbaba62(config-router)network 10.62.1.0 0.0.0.255 
+COREbaba62(config-router)network 10.62.62.0 0.0.0.255
+COREbaba62(config-router)end
+COREbaba62
 
-CUCM-62(config)#router eigrp 62
-CUCM-62(config-router)#no au
-CUCM-62(config-router)#no auto-summary 
-CUCM-62(config-router)#network 10.62.100.0 0.0.0.255
-CUCM-62(config-router)#end
-CUCM-62#
+CUCM-62(config)router eigrp 62
+CUCM-62(config-router)no au
+CUCM-62(config-router)no auto-summary 
+CUCM-62(config-router)network 10.62.100.0 0.0.0.255
+CUCM-62(config-router)end
+CUCM-62
 
-EDGE-62(config)#ip routing
-EDGE-62(config)#router eigrp 62
-EDGE-62(config-router)#no auto
-EDGE-62(config-router)#no auto-summary 
-EDGE-62(config-router)#network 10.62.62.0 0.0.0.255
-EDGE-62(config-router)#end
+ip routing
+router eigrp 62
+EDGE-62(config-router)no auto
+EDGE-62(config-router)no auto-summary 
+EDGE-62(config-router)network 10.62.62.0 0.0.0.255
+EDGE-62(config-router)end
 
-EDGE-62(config)#router ospf 1
-EDGE-62(config-router)#router-id 62.0.0.1
-EDGE-62(config-router)#network 200.0.0.0 0.0.0.255 area 0
-EDGE-62(config-router)#network 62.0.0.1 0.0.0.0 area 0
-EDGE-62(config-router)#end
+router ospf 1
+EDGE-62(config-router)router-id 62.0.0.1
+EDGE-62(config-router)network 200.0.0.0 0.0.0.255 area 0
+EDGE-62(config-router)network 62.0.0.1 0.0.0.0 area 0
+EDGE-62(config-router)end
 
-EDGE-62(config)#router ospf 1
-EDGE-62(config-router)#redistribute eigrp 62 subnets
-EDGE-62(config-router)#router eigrp 62
-EDGE-62(config-router)#redistribute ospf 1 metric 1000000 1 255 1 1500
-EDGE-62(config-router)#end
+router ospf 1
+EDGE-62(config-router)redistribute eigrp 62 subnets
+EDGE-62(config-router)router eigrp 62
+EDGE-62(config-router)redistribute ospf 1 metric 1000000 1 255 1 1500
+EDGE-62(config-router)end
+
+
+TASK1 
+ip route 0.0.0.0 0.0.0.0 200.0.0.1
+ip name-server 8.8.8.8
+ip domain-lookup
+no ip access-list standard NOPORN1
+ip access-list standard NOPORN1
+deny 66.254.0.0 0.0.255.255
+deny 104.21.0.0 0.0.255.255
+deny 68.235.0.0 0.0.255.255 
+deny 104.17.0.0 0.0.255.255
+deny 88.208.0.0 0.0.255.255
+permit any
+int gi 0/0/1
+ip access-group NOPORN1 in
+end
+
+TASK1.2
+ip route 0.0.0.0 0.0.0.0 200.0.0.1
+ip name-server 8.8.8.8
+ip domain-lookup
+no ip access-list standard COL2ONLY
+ip access-list standard COL2ONLY
+deny 10.11.0.0 0.0.255.255
+deny 10.21.0.0 0.0.255.255
+deny 10.31.0.0 0.0.255.255 
+deny 10.41.0.0 0.0.255.255
+deny 10.51.0.0 0.0.255.255
+deny 10.61.0.0 0.0.255.255
+permit any
+int gi 0/0/1
+ip access-group COL2ONLY in
+end
+
+TASK1.3
+ip route 0.0.0.0 0.0.0.0 200.0.0.1
+ip name-server 8.8.8.8
+ip domain-lookup
+no ip access-list standard lAST2ROWONLY
+ip access-list standard LAST2ROWONLY
+deny 10.11.0.0 0.0.255.255
+deny 10.21.0.0 0.0.255.255
+deny 10.31.0.0 0.0.255.255 
+deny 10.41.0.0 0.0.255.255
+deny 10.12.0.0 0.0.255.255
+deny 10.22.0.0 0.0.255.255
+deny 10.32.0.0 0.0.255.255
+deny 10.42.0.0 0.0.255.255
+permit any
+int gi 0/0/1
+ip access-group LAST2ROWONLY in
+end
+
+
+
 
 
