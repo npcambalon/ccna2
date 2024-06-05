@@ -29,4 +29,11 @@ EDGE-62(config-router)#router-id 62.0.0.1
 EDGE-62(config-router)#network 200.0.0.0 0.0.0.255 area 0
 EDGE-62(config-router)#network 62.0.0.1 0.0.0.0 area 0
 EDGE-62(config-router)#end
-EDGE-62#
+
+EDGE-62(config)#router ospf 1
+EDGE-62(config-router)#redistribute eigrp 62 subnets
+EDGE-62(config-router)#router eigrp 62
+EDGE-62(config-router)#redistribute ospf 1 metric 1000000 1 255 1 1500
+EDGE-62(config-router)#end
+
+
