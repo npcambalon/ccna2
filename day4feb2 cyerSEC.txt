@@ -19,6 +19,9 @@ net  use  \\10.k.1.10\ipc$  "attacks 139, and connects to it."
 "privilege escalation"
 net  use  s: \\10.k.1.10\c$  /user:administrator
 
+!SERVICES vs PORT
+!
+
 net  use  s: \\10.k.1.10\c$
 
 TASK3: When you become a Security Analyst:
