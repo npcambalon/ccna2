@@ -125,7 +125,7 @@ before: nmap -v 10.m.100.8
 @Cucm:
 config t
 int fa 0/0
- ip add 10.m.100.9 255.255.255.0 Secondary
+ ip add 10.62.100.9 255.255.255.0 Secondary
 service finger
 service tcp-small-servers
 service udp-small-servers
@@ -133,13 +133,16 @@ ip dns server
 ip http server
 ip http secure-server
 !Make Ping EASY
-ip host pc 10.m.1.10
-ip host cm 10.m.100.8
-ip host cm2 10.m.100.9
-ip host p1 10.m.100.101
-ip host p2 10.m.100.102
-ip host sw 10.m.1.4
-ip host ed 10.m.m.1
+ip host pc 10.62.1.10
+ip host cm 10.62.100.8
+ip host cm2 10.62.100.9
+ip host p1 10.62.100.101
+ip host p2 10.62.100.102
+ip host sw 10.62.1.4
+ip host ed 10.62.62.1
+ip host c6 10.62.50.6
+ip host c8 10.62.50.8
+end
 
 TASK7: Enter the World of BlueTeam: Protect vs Redteam: Attack, 
 BlueTeam: UTM: unified Threat management:
@@ -152,6 +155,107 @@ Top 5 UTM: 1.FortinetFortigate:
            1.1: Palo Alto:superSuplado
            2. Checkpoint
            3.4 Cisco
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 TASK8: CONGigure YOur first Packet Filter Firewall.
  FORMULA: "  Protocol    hacker   victim  Port "
@@ -200,11 +304,38 @@ nmap -v cm       nmap -v cm2
 2000             23
 80               53
 
+config t
+NO IP access-list Extended fwpolicy2
+IP access-list Extended fwpolicy2
+ permit Tcp Any host cm Eq 443
+ permit Tcp Any host cm Eq 22
+ permit Tcp Any host cm Eq 80
+ permit Tcp Any host cm2 Eq 23
+ permit Tcp Any host cm2 Eq 443
+ permit Tcp Any host cm2 Eq 53
+ do sh ip access-list fwpolicy1
+ Int Fa 0/0
+  ip access-group fwpolicy2 IN
+  end
 ex.2: Make a Firewall so that we can meet this fwpolicy3:
 cm is a ping,cucm/sccp,
 cm2 is  ssh,web,dns,finger
 create a fwpolicy3 Policy to meet his condition.
 @CUCM
+config t
+NO IP access-list Extended fwpolicy3
+IP access-list Extended fwpolicy3
+ permit icmp any host cm
+ permit tcp any host cm Eq 2000
+ permit tcp any host cm2 Eq 22
+ permit tcp any host cm2 Eq 80
+ permit tcp any host cm2 Eq 53
+ permit tcp any host cm2 Eq 79
+ do sh ip access-list fwpolicy3
+ Int fa 0/0
+  ip access-group fwpolicy3 in
+end
+
 config t
 NO IP access-list Extended fwpolicy3
 IP access-list Extended fwpolicy3
