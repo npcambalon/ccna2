@@ -1,0 +1,32 @@
+configuring OSPF and EIGRP in real world devices
+
+COREbaba62(config)#router eigrp 62
+COREbaba62(config-router)#no auto-s
+COREbaba62(config-router)#no auto-summary 
+COREbaba62(config-router)#network 10.62.100.0 0.0.0.255
+COREbaba62(config-router)#network 10.62.50.0 0.0.0.255 
+COREbaba62(config-router)#network 10.62.10.0 0.0.0.255
+COREbaba62(config-router)#network 10.62.1.0 0.0.0.255 
+COREbaba62(config-router)#network 10.62.62.0 0.0.0.255
+COREbaba62(config-router)#end
+COREbaba62#
+
+CUCM-62(config)#router eigrp 62
+CUCM-62(config-router)#no au
+CUCM-62(config-router)#no auto-summary 
+CUCM-62(config-router)#network 10.62.100.0 0.0.0.255
+CUCM-62(config-router)#end
+CUCM-62#
+
+EDGE-62(config)#router eigrp 62
+EDGE-62(config-router)#no auto
+EDGE-62(config-router)#no auto-summary 
+EDGE-62(config-router)#network 10.62.62.0 0.0.0.255
+EDGE-62(config-router)#end
+
+EDGE-62(config)#router ospf 1
+EDGE-62(config-router)#router-id 62.0.0.1
+EDGE-62(config-router)#network 200.0.0.0 0.0.0.255 area 0
+EDGE-62(config-router)#network 62.0.0.1 0.0.0.0 area 0
+EDGE-62(config-router)#end
+EDGE-62#
