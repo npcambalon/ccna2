@@ -18,6 +18,7 @@ CUCM-62(config-router)#network 10.62.100.0 0.0.0.255
 CUCM-62(config-router)#end
 CUCM-62#
 
+EDGE-62(config)#ip routing
 EDGE-62(config)#router eigrp 62
 EDGE-62(config-router)#no auto
 EDGE-62(config-router)#no auto-summary 
