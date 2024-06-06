@@ -35,7 +35,7 @@ as host.
 @P1
 config t
 ipv6 unicast-routing
-int e0/0
+int giga 2
  no shutdown
  ipv6 add dada:dada:fafa:fafa::/64 EUI-64
  do sh ipv6 int brief
@@ -54,8 +54,8 @@ Method3: STatic IPv6 address manual:
 @p1
 config t
 ipv6 unicast-routing
-int e0/0
- ipv6 add aaaa:bbbb:cccc:dddd::1212/64
+int giga 2
+ ipv6 add DEAF:FADE:AFE:FAD:DAFA:DADA:B00B:1212/64
  do sh ipv6 int brief
 end
 
@@ -216,10 +216,10 @@ end
 #sh int status err-disabled 
 TAAS: bounce/UP/down
 config t
-int fa 0/1
+int fa 0/3
  shut
  no shut
-int fa 0/5
+int fa 0/7
  shut
  no shut
 end
@@ -246,18 +246,7 @@ exit
 step2: 
 create vlans:
 TAAS:
-config t
-vlan 11-19
-exit
-vlan 21-29
-exit
-vlan 31-39
-exit
-BABA: sh vlan brief:
-@ENABLE SUPERMAN: 802.1S
-cpu1: vlan 11-19
-cpu2: vlan 21-29
-cpu3: vlan 31-39
+ 
 @TAAs/BABA:
 CONFIG T
 spanning-tree mode Mst
