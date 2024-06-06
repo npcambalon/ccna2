@@ -19,7 +19,7 @@ method1: Ipv6 autoconfig/autoBwisit
 @p1
 config t
 ipv6 unicast-routing
-int e0/0
+int giga 2
  ipv6 enable
  Ipv6 address autoconfig
 
