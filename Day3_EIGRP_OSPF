@@ -9,7 +9,7 @@ COREbaba62(config-router)network 10.62.10.0 0.0.0.255
 COREbaba62(config-router)network 10.62.1.0 0.0.0.255 
 COREbaba62(config-router)network 10.62.62.0 0.0.0.255
 COREbaba62(config-router)end
-COREbaba62
+COREbaba62 show ip route
 
 CUCM-62(config)router eigrp 62
 CUCM-62(config-router)no au
