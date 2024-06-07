@@ -130,6 +130,18 @@ int gi 0/0/1
 ip access-group THREESOME in
 end
 
+!NAT 
+!create an access list to all ip address
+config t
+no access-list 5
+access-list 5 permit 10.62.0.0 0.0.255.255
+int gi 0/0/1
+  ip NAT OUTSIDE
+int gi 0/0/0
+  ip NAT INSIDE
+ip nat inside source list 5 interface gi 0/0/1 overload
+end
+
 
 
 
