@@ -88,6 +88,7 @@ ip dhcp pool IPCCTV
    default-router 10.62.50.4
    domain-name IPCCTV.COM
    dns-server 10.62.1.10
+!!!!!!!! LABORATORY ALERT !!!!!!!!
 ip dhcp pool VOICEVLAN
    network 10.62.100.0 255.255.255.0
    default-router 10.62.100.4
